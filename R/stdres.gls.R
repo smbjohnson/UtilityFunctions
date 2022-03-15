@@ -4,6 +4,7 @@
 #' @return 'stdres.gls()' returns the decorrelated, adjusted, standardized residuals for a gls model
 #' @export
 
+# Created by Dr. Heaton BYU
 
 stdres.gls <- function(glsobj){
   
