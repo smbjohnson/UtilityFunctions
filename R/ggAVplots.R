@@ -7,27 +7,27 @@
 
 
 ggAVplots  <- function(MODEL, color = 'red') {
-  
+
   #Extract the information for AV plots
-  AVPLOTS <- avPlots.invis(MODEL)
+  AVPLOTS <- car::avPlots.invis(MODEL)
   K       <- length(AVPLOTS)
-  
+
   #Create the added variable plots using ggplot
   GGPLOTS <- vector('list', K)
   for (i in 1:K) {
     DATA         <- data.frame(AVPLOTS[[i]])
-    GGPLOTS[[i]] <- ggplot2::ggplot(aes_string(x = colnames(DATA)[1], 
-                                               y = colnames(DATA)[2]), 
+    GGPLOTS[[i]] <- ggplot2::ggplot(aes_string(x = colnames(DATA)[1],
+                                               y = colnames(DATA)[2]),
                                     data = DATA) +
-      geom_point(colour = 'black') + 
-      geom_smooth(method = 'lm', se = FALSE, 
+      ggplot2::geom_point(colour = 'black') +
+      ggplot2::geom_smooth(method = 'lm', se = FALSE,
                   color = color, formula = y ~ x, linetype = 'dashed') +
       labs(
         x = paste0('(', names(DATA)[1], ' | others)'),
         y = '' #ylab(paste0('(',ifelse(is.null(YLAB), paste0(names(DATA)[2], ' | others'), YLAB), ')'))
       )
   }
-  
+
   #Return output object
   GGPLOTS }
 
