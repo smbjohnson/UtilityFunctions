@@ -1,6 +1,5 @@
 #' A function that takes number and returns if its prime or not
 #' @param number any number greater than 0
-#' @import
 #' @return 'prime()' returns true or false depending on if the input was prime or not.
 #' @export
 #' @examples

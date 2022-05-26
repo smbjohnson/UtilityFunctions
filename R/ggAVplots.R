@@ -1,7 +1,6 @@
 #' A function that takes a linear model and returns av plots that are ggplot objects
 #' @param model This is the model you want to check linearity for
 #' @param color This is the color of the dotted line
-#' @import
 #' @return 'ggAVplots()' return av plots for the variables in the model
 #' @export
 

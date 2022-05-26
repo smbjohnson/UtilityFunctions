@@ -1,6 +1,5 @@
 #' A function that takes number and returns its base factors
 #' @param number any number greater than 0
-#' @import
 #' @return 'fac_tree' returns a vector containing all the base facotrs of the input
 #' @export
 #' @examples

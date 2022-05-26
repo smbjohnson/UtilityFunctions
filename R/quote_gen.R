@@ -1,6 +1,5 @@
 #' A function that returns a quote
 #' @param
-#' @import
 #' @return 'quote_gen()' returns a quote
 #' @export
 #' @examples

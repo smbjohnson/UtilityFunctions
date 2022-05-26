@@ -1,6 +1,5 @@
 #' A function that takes the first row of a dataframe and makes it the header
 #' @param dataframe This is a dataframe
-#' @import
 #' @return 'CreateHeader()' returns a dataframe where the previous first row has now become the header.
 #' @export
 #' @examples
