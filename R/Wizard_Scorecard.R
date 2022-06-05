@@ -1,5 +1,5 @@
 #' A function that walks you through keeping score for a wizard game and returns the scorecard.
-#' @param
+#' @param save Is a logical that indicates whether you want to save the scorecard as a csv
 #'
 #' @import tidyverse
 #' @import devtools
@@ -77,10 +77,12 @@ wizard <- function(save = FALSE){
     # updating the order for players bids
     player_order <- c(player_order[-1], player_order[1])
   }
+  # saving the scorecard to a csv
   if(save == TRUE) {
-    date <- gsub(pattern = ":", replacement = ".", x = Sys.time())
-    date <- gsub(pattern = " ", replacement = "_", date)
-    write.csv(scorecard, paste0("wizard_scorecard_",date,".csv"))
+    game_date <- gsub(pattern = ":", replacement = ".", x = Sys.time())
+    game_date <- gsub(pattern = " ", replacement = "_", game_date)
+    write.csv(scorecard, paste0("wizard_scorecard_",game_date,".csv"))
+    print(paste0("scorecard saved to ", getwd()))
     }
   # returning the scorecard
   return(scorecard)
