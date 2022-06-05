@@ -11,7 +11,7 @@
 #' @examples
 #' df <- wizard()
 
-wizard <- function(){
+wizard <- function(save = FALSE){
   # entering the number of players
   player_num <- menu(c(1,2,3,4,5,6),
                      title = "How many players are there?")
@@ -77,6 +77,11 @@ wizard <- function(){
     # updating the order for players bids
     player_order <- c(player_order[-1], player_order[1])
   }
+  if(save == TRUE) {
+    date <- gsub(pattern = ":", replacement = ".", x = Sys.time())
+    date <- gsub(pattern = " ", replacement = "_", date)
+    write.csv(scorecard, paste0("wizard_scorecard_",date,".csv"))
+    }
   # returning the scorecard
   return(scorecard)
 }
