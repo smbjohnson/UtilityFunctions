@@ -73,7 +73,7 @@ wizard <- function(save = FALSE){
                Diff = Score - lag(Score, n = 1, default = 0))
     }
     # printing off score update
-    print(scorecard %>% dplry::filter(Round == j) %>% dplyr::select(Player,Score) %>% dplyr::arrange(desc(Score)))
+    print(scorecard %>% dplyr::filter(Round == j) %>% dplyr::select(Player,Score) %>% dplyr::arrange(desc(Score)))
     # updating the order for players bids
     player_order <- c(player_order[-1], player_order[1])
   }
