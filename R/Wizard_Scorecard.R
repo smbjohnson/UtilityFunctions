@@ -68,8 +68,8 @@ wizard <- function(save = FALSE){
         mutate(Score = ifelse(Bid == Actual, 20 + (10*Bid), -10*abs(Bid - Actual)))
     } else { # scores are updated based on previous scores
       scorecard %<>%
-        group_by(Player) %>%
-        mutate(Score = lag(Score, n = 1, default = 0, order_by = Round) + ifelse(Bid == Actual, 20 + (10 * Bid), -10*(abs(Bid - Actual))),
+        dplyr::group_by(Player) %>%
+        dplyr::mutate(Score = lag(Score, n = 1, default = 0, order_by = Round) + ifelse(Bid == Actual, 20 + (10 * Bid), -10*(abs(Bid - Actual))),
                Diff = Score - lag(Score, n = 1, default = 0))
     }
     # printing off score update
