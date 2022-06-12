@@ -58,8 +58,17 @@ wizard <- function(save = FALSE){
     print(paste0("We are ", scorecard %>% dplyr::filter(Round == j) %$% Bid %>% sum(), " of ", j))
     # collecting the actual number of tricks a player gets
     for(i in 1:player_num) {
-      scorecard[scorecard$Round == j & scorecard$Player == player_name[player_order[i]],'Actual'] <- as.numeric(
-        readline(paste0("What did ", player_name[player_order[i]], " get?")))
+      # getting the player's actual tricks
+      player_trick <- as.numeric(readline(paste0("What did ", player_name[player_order[i]], " get?")))
+      # checking to make sure it is a number
+      while(is.na(player_trick)) {
+        # asking the player to enter a number
+        print("Please Enter a Number")
+        # getting that new number
+        player_trick <- as.numeric(readline(paste0("What did ", player_name[player_order[i]], " get?")))
+      }
+      # saving the actual
+      scorecard[scorecard$Round == j & scorecard$Player == player_name[player_order[i]],'Actual'] <- player_trick
     }
     # calculating the score
     if(j==1) { # score for the first round is going off 0
