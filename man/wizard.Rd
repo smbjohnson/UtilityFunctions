@@ -4,7 +4,10 @@
 \alias{wizard}
 \title{A function that walks you through keeping score for a wizard game and returns the scorecard.}
 \usage{
-wizard()
+wizard(save = FALSE)
+}
+\arguments{
+\item{save}{Is a logical that indicates whether you want to save the scorecard as a csv}
 }
 \value{
 'wizard()' walks you through keeping score for a wizard game and returns the scorecard.

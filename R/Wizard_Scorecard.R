@@ -1,7 +1,7 @@
 #' A function that walks you through keeping score for a wizard game and returns the scorecard.
 #' @param save Is a logical that indicates whether you want to save the scorecard as a csv
 #'
-#' @import tidyverse
+#' @importFrom dplyr rename
 #' @import devtools
 #' @importFrom magrittr %>%
 #' @importFrom magrittr %$%
@@ -25,7 +25,7 @@ wizard <- function(save = FALSE){
   }
   # creating an empty scorecard dataframe
   scorecard <- data.frame(matrix(nrow = 60, ncol = 5)) %>%
-    rename('Round' = 'X1',
+    dplyr::rename('Round' = 'X1',
            'Player' = 'X2',
            'Bid' = 'X3',
            'Actual' = 'X4',
@@ -55,7 +55,7 @@ wizard <- function(save = FALSE){
       scorecard[scorecard$Round == j & scorecard$Player == player_name[player_order[i]],'Bid'] <- player_bid
     }
     # printing out the bid count
-    print(paste0("We are ", scorecard %>% filter(Round == j) %$% Bid %>% sum(), " of ", j))
+    print(paste0("We are ", scorecard %>% dplyr::filter(Round == j) %$% Bid %>% sum(), " of ", j))
     # collecting the actual number of tricks a player gets
     for(i in 1:player_num) {
       scorecard[scorecard$Round == j & scorecard$Player == player_name[player_order[i]],'Actual'] <- as.numeric(
@@ -73,7 +73,7 @@ wizard <- function(save = FALSE){
                Diff = Score - lag(Score, n = 1, default = 0))
     }
     # printing off score update
-    print(scorecard %>% filter(Round == j) %>% select(Player,Score) %>% arrange(desc(Score)))
+    print(scorecard %>% dplry::filter(Round == j) %>% dplyr::select(Player,Score) %>% dplyr::arrange(desc(Score)))
     # updating the order for players bids
     player_order <- c(player_order[-1], player_order[1])
   }
