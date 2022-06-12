@@ -1,7 +1,7 @@
 #' A function that walks you through keeping score for a wizard game and returns the scorecard.
 #' @param save Is a logical that indicates whether you want to save the scorecard as a csv
 #'
-#' @importFrom dplyr rename
+#' @import dplyr
 #' @import devtools
 #' @importFrom magrittr %>%
 #' @importFrom magrittr %$%
@@ -64,8 +64,8 @@ wizard <- function(save = FALSE){
     # calculating the score
     if(j==1) { # score for the first round is going off 0
       scorecard %<>%
-        group_by(Player) %>%
-        mutate(Score = ifelse(Bid == Actual, 20 + (10*Bid), -10*abs(Bid - Actual)))
+        dplyr::group_by(Player) %>%
+        dplyr::mutate(Score = ifelse(Bid == Actual, 20 + (10*Bid), -10*abs(Bid - Actual)))
     } else { # scores are updated based on previous scores
       scorecard %<>%
         dplyr::group_by(Player) %>%
