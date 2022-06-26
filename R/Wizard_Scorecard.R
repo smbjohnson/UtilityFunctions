@@ -70,6 +70,30 @@ wizard <- function(save = FALSE){
       # saving the actual
       scorecard[scorecard$Round == j & scorecard$Player == player_name[player_order[i]],'Actual'] <- player_trick
     }
+    # checking for corrections
+    cor <- menu(c('Yes','No'), title = 'Are there any corrections?')
+    # inputing the correction
+    if(cor == 'Yes' | cor == 1) {
+      other_cor = TRUE
+      while(other_cor == TRUE | other_cor == 1) {
+        player <- menu(player_name, title = "Whose score needs correction?")
+        bid_act_options <- c('Bid','Actual')
+        bid_act <- menu(c('Bid','Actual'), title = "What it the bid or actual?")
+        true_val <- as.numeric(readline(prompt = "What is the true value?"))
+
+        if(is.numeric(player) & is.numeric(bid_act)) {
+          scorecard[scorecard$Player == player_name[player] & scorecard$Round == j,bid_act_options[bid_act]] <- true_val
+        } else if (is.numeric(player) & !is.numeric(bid_act)) {
+          scorecard[scorecard$Player == player_name[player] & scorecard$Round == j,bid_act] <- true_val
+        } else if (!is.numeric(player) & is.numeric(bid_act)) {
+          scorecard[scorecard$Player == player & scorecard$Round == j,bid_act_options[bid_act]] <- true_val
+        } else {
+          scorecard[scorecard$Player == player & scorecard$Round == j,bid_act] <- true_val
+        }
+
+        other_cor <- menu(c(TRUE,FALSE), title = "Are there other corrections?")
+      }
+    }
     # calculating the score
     if(j==1) { # score for the first round is going off 0
       scorecard %<>%
@@ -88,20 +112,6 @@ wizard <- function(save = FALSE){
                PotIncrease = PotScore - lag(PotScore, n = 1, default = 0)
                )
     }
-    # checking for corrections
-    cor <- menu(c('Yes','No'), title = 'Are there any corrections?')
-    # inputing the correction
-    if(cor == 'Yes') {
-      other_cor == TRUE
-      while(other_cor == TRUE) {
-      player <- menu(player_name, title = "Whose score needs correction?")
-      bid_act <- menu(c('Bid','Actual'), title = "What it the bid or actual?")
-      true_val <- as.numeric(readline(prompt = "What is the true value?"))
-      scorecard[scorecard$Player == player & scorecard$Round == j,bid_act] <- true_val
-      other_cor <- menu(c(TRUE,FALSE), title = "Are there other corrections?")
-      }
-    }
-
     # printing off score update
     print(scorecard %>% dplyr::filter(Round == j) %>% dplyr::select(Player,Score) %>% dplyr::arrange(desc(Score), Player))
     # updating the order for players bids
